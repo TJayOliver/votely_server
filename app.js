@@ -8,10 +8,7 @@ import categoryRouter from "./src/category/router/categoryRouter.js";
 import candidateRouter from "./src/candidate/router/candidateRouter.js";
 import globalRouter from "./src/global/router/globalRouter.js";
 import voteRouter from "./src/vote/router/voteRouter.js";
-<<<<<<< HEAD
 import transactionRouter from "./src/transaction/router/transactionRouter.js";
-=======
->>>>>>> 2b6c069fa3ae1f857b3d5c92ade39de602dbb611
 import cookieParser from "cookie-parser";
 import cronJob from "node-cron";
 import { executeQuery } from "./configurations/mysql.config.js";
@@ -33,11 +30,7 @@ app.use(
     credentials: true,
   })
 );
-<<<<<<< HEAD
 app.use(helmet({ crossOriginResourcePolicy: false }));
-=======
-//app.use(helmet({ crossOriginResourcePolicy: "same-site" }));
->>>>>>> 2b6c069fa3ae1f857b3d5c92ade39de602dbb611
 app.use("/upload", express.static("upload"));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -74,10 +67,7 @@ app.use(categoryRouter);
 app.use(candidateRouter);
 app.use(globalRouter);
 app.use(voteRouter);
-<<<<<<< HEAD
 app.use(transactionRouter);
-=======
->>>>>>> 2b6c069fa3ae1f857b3d5c92ade39de602dbb611
 
 // delete unverified new accounts after one week
 cronJob.schedule("0 */3 * * *", async () => {
