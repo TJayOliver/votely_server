@@ -68,7 +68,7 @@ CREATE TABLE transaction (
     `transaction_id` VARCHAR(100) NOT NULL,
     `candidate_id` VARCHAR(80) NOT NULL,
     `amount` INT NOT NULL,
-    `reference_id` INTEGER NOT NULL DEFAULT 0,
+    `reference` INTEGER NOT NULL DEFAULT 0,
     `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`transaction_id`),
     FOREIGN KEY `fk_transaction_candidate` (`candidate_id`) REFERENCES candidate(`candidate_id`)

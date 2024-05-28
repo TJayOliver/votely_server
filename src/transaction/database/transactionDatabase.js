@@ -1,12 +1,12 @@
-import { executeQuery } from "../../../../configurations/mysql.config.js";
+import { executeQuery } from "../../../configurations/mysql.config.js";
 
 class TransactionDatabase {
   async createTransaction(details) {
     try {
-      const query = `INSERT INTO transaction (transaction_id, reference_id, amount, candidate_id) VALUES (?,?,?,?)`;
+      const query = `INSERT INTO transaction (transaction_id, reference, amount, candidate_id) VALUES (?,?,?,?)`;
       const parameter = [
-        details.id,
-        details.reference_id,
+        details.transaction_id,
+        details.reference,
         details.amount,
         details.candidate_id,
       ];

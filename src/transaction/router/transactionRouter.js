@@ -1,8 +1,12 @@
 import express from "express";
-import { transaction } from "../controller/transactionController.js";
+import {
+  makePayment,
+  verifyPayment,
+} from "../controller/transactionController.js";
 
 const transactionRouter = express.Router();
 
-transactionRouter.post("/payment", transaction);
+transactionRouter.post("/payment", makePayment);
+transactionRouter.post("/payment/verify", verifyPayment);
 
 export default transactionRouter;
