@@ -42,7 +42,7 @@ CREATE TABLE candidate (
 );
 
 CREATE TABLE vote (
-    `vote_id` VARCHAR(100) NOT NULL,
+    `vote_id` INTEGER NOT NULL AUTO_INCREMENT,
     `candidate_id` VARCHAR(80) NOT NULL,
     `number_of_vote` INTEGER NOT NULL DEFAULT 0,
     `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -65,11 +65,11 @@ CREATE TABLE onetimeverification (
 );
 
 CREATE TABLE transaction (
-    `transaction_id` VARCHAR(100) NOT NULL,
+    `reference_id` VARCHAR(100) NOT NULL,
     `candidate_id` VARCHAR(80) NOT NULL,
     `amount` INT NOT NULL,
-    `reference` INTEGER NOT NULL DEFAULT 0,
+    `receipt_number` VARCHAR(100) NOT NULL,
     `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`transaction_id`),
+    PRIMARY KEY (`reference_id`),
     FOREIGN KEY `fk_transaction_candidate` (`candidate_id`) REFERENCES candidate(`candidate_id`)
 );

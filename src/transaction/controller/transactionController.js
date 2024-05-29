@@ -23,7 +23,7 @@ export const makePayment = (req, res) => {
       email: "customer@email.com",
       amount: amount,
       ref: todaysDate + nanoid(5),
-      callback_url: process.env.CLIENT_URL + "/global/voted",
+      callback_url: process.env.CLIENT_URL + `/global/${candidate_id}/voted`,
     });
 
     const options = {
@@ -62,7 +62,7 @@ export const makePayment = (req, res) => {
 };
 
 export const verifyPayment = (req, res) => {
-  const { reference } = req.body;
+  const { reference, candidate_id } = req.body;
 
   try {
     const options = {
@@ -74,41 +74,38 @@ export const verifyPayment = (req, res) => {
         Authorization: `Bearer ${secretKey}`,
       },
     };
-
     const request = https.request(options, (response) => {
       let data = "";
-
       response.on("data", (chunk) => {
         data += chunk;
       });
-
       response.on("end", async () => {
         try {
-          const jsonResponse = JSON.parse(data);
+          const jsonResponse = await JSON.parse(data);
+          const status = jsonResponse.data.status;
           const details = {
-            transaction_id: jsonResponse.receipt_number,
-            reference: jsonResponse.reference,
-            amount: jsonResponse.amount / 100,
+            reference_id: jsonResponse.data.reference,
+            receipt_number: jsonResponse.data.receipt_number,
+            amount: jsonResponse.data.amount / 100,
             candidate_id: candidate_id,
           };
-          if (jsonResponse.data.status === true) {
-            const getUserIDFromCandidateID =
-              await candidateDatabase.getCandidateByID(candidate_id);
-            const userID = getUserIDFromCandidateID.data[0].user_id;
-            const getPricePerVoteFromUserID =
-              await userDatabase.getPricePerVote(userID);
-            const pricePerVote =
-              getPricePerVoteFromUserID.data[0].price_per_vote;
-            const number_of_vote = details.amount / pricePerVote;
-            await insertVoteIntoDatabase.createCandidateVoteService(
-              number_of_vote,
-              candidate_id
-            );
-            await insertTransactionDetailsToDatabase.createTransaction(details);
+          if (status === "success") {
+            const existingReferenceID = await insertTransactionDetailsToDatabase.getReferenceID(details.reference_id);
+            if (existingReferenceID.length < 1) {
+              const getUserIDFromCandidateID = await candidateDatabase.getCandidateByID(candidate_id);
+              const userID = getUserIDFromCandidateID[0].user_id;
+              const getPricePerVoteFromUserID = await userDatabase.getPricePerVote(userID);
+              const pricePerVote = getPricePerVoteFromUserID[0].price_per_vote;
+              const number_of_vote = details.amount / pricePerVote;
+              await insertTransactionDetailsToDatabase.createTransaction(details);
+              await insertVoteIntoDatabase.createCandidateVoteService(number_of_vote, candidate_id);
+              return res.status(200).json(jsonResponse);
+            } else {
+              console.log("Transaction already exists");
+            }
           }
-          return res.status(200).json(jsonResponse);
-        } catch (parseError) {
-          console.error("JSON parse error:", parseError.message);
+        } catch (error) {
+          console.error("JSON parse error:", error.message);
           return res.status(500).json("Internal Server Error");
         }
       });
