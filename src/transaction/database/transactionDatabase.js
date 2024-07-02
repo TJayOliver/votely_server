@@ -22,6 +22,8 @@ class TransactionDatabase {
       throw error;
     }
   }
+
+  
 }
 
 export default TransactionDatabase;

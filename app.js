@@ -6,7 +6,7 @@ import adminRouter from "./src/admin/router/adminRouter.js";
 import userRouter from "./src/user/router/userRouter.js";
 import categoryRouter from "./src/category/router/categoryRouter.js";
 import candidateRouter from "./src/candidate/router/candidateRouter.js";
-import globalRouter from "./src/global/router/globalRouter.js";
+import globalRouter from "./src/event/router/eventRouter.js";
 import voteRouter from "./src/vote/router/voteRouter.js";
 import transactionRouter from "./src/transaction/router/transactionRouter.js";
 import cookieParser from "cookie-parser";
