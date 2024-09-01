@@ -3,7 +3,7 @@ class CategoryController {
     this.service = service;
   }
 
-  async createCategoryController(req, res) {
+  async createCategory(req, res) {
     const { category_name, user_id } = req.body;
     try {
       const options = {
@@ -18,7 +18,8 @@ class CategoryController {
     }
   }
 
-  async readCategoryController(req, res) {
+  // displays all categories created by user using the user_id (user_id)
+  async readCategory(req, res) {
     const { id } = req.params;
     try {
       const category = await this.service.readCategoryService(id);
@@ -29,7 +30,7 @@ class CategoryController {
     }
   }
 
-  async deleteCategoryController(req, res) {
+  async deleteCategory(req, res) {
     const { category_id } = req.params;
     try {
       const category = await this.service.deleteCategoryService(category_id);
@@ -40,7 +41,8 @@ class CategoryController {
     }
   }
 
-  async getCategoryByIDController(req, res) {
+  // displays only the id from the category database
+  async getCategoryByID(req, res) {
     try {
       const category = await this.service.getCategoryByIDService(id);
       return res.status(201).json({ message: "success", data: category });
@@ -50,21 +52,8 @@ class CategoryController {
     }
   }
 
-  async getCategoryNameController(req, res) {
-    const { name } = req.params;
-    try {
-      const category = await this.service.getCategoryNameService(name);
-      return res.status(201).json({ message: "success", data: category });
-    } catch (error) {
-      console.error(
-        "get category by name category {Controller}:",
-        error.message
-      );
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
-  }
-
-  async getCategoryByNameController(req, res) {
+  // displays all the candidates information from the category database using the categoryname
+  async getCategoryByName(req, res) {
     const { name } = req.params;
     try {
       const category = await this.service.getCategoryByNameService(name);

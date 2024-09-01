@@ -114,7 +114,31 @@ class UserDatabase {
     }
   }
 
-  async getCategoryCandidate(category_name) {
+  async getCategoryCandidate(id) {
+    try {
+      const query = `SELECT
+            candidate.candidate_id,
+            candidate.candidate_name,
+            candidate.candidate_profile,
+            category.category_name,
+            candidate.image,
+            vote.number_of_vote
+            FROM candidate
+            JOIN category USING(category_id)
+            JOIN users ON candidate.user_id = users.user_id
+            LEFT JOIN vote USING(candidate_id)
+            WHERE users.user_id = ?
+            ORDER BY category.category_name
+            `;
+      const parameter = [id];
+      const user = await executeQuery(query, parameter);
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getCategoryByName(category_name) {
     try {
       const query = `SELECT
             candidate.candidate_id,

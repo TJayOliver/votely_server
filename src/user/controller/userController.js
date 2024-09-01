@@ -91,15 +91,29 @@ class UserController {
     }
   }
 
+  // displays all the categories and its candidates
   async getCategoryCandidate(req, res) {
-    const { category_name } = req.params;
+    const { id } = req.params;
     try {
       const user = await this.service.getCategoryCandidateService(
-        category_name
+        id
       );
       return res.status(201).json({ message: "Success", data: user });
     } catch (error) {
       console.error("get category and candidate {controller}:", error.message);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+
+  async getCategoryByName (req, res) {
+    const { category_name } = req.params;
+    try {
+      const user = await this.service.getCategoryByNameService(
+        category_name
+      );
+      return res.status(201).json({ message: "Success", data: user });
+    } catch (error) {
+      console.error("get category by name {controller}:", error.message);
       return res.status(500).json({ message: "Internal Server Error" });
     }
   }

@@ -34,8 +34,12 @@ userRouter.get("/user/profile/:id", async (req, res) =>
   controller.readUserByID(req, res)
 );
 
-userRouter.get("/user/category/:category_name", async (req, res) =>
+userRouter.get("/user/candidate-category/:id", async (req, res) =>
   controller.getCategoryCandidate(req, res)
+);
+
+userRouter.get("/user/category/:category_name", async (req, res) =>
+  controller.getCategoryByName(req, res)
 );
 
 userRouter.get("/user/voteprice/:user_id", async (req, res) =>

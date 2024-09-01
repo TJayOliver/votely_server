@@ -46,15 +46,6 @@ class CategoryService {
     }
   }
 
-  async getCategoryNameService(categoryname) {
-    try {
-      const category = await this.database.getCategoryName(categoryname);
-      return category;
-    } catch (error) {
-      console.error("get category name category {Service}:", error.message);
-    }
-  }
-
   async getCategoryByNameService(categoryname) {
     try {
       const category = await this.database.getCategoryByName(categoryname);

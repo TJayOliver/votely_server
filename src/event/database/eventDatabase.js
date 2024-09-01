@@ -1,6 +1,6 @@
 import { executeQuery } from "../../../configurations/mysql.config.js";
 
-class GlobalDatabase {
+class EventDatabase {
   async getLink(link) {
     try {
       const query = `SELECT 
@@ -15,8 +15,8 @@ class GlobalDatabase {
         JOIN candidate USING(category_id)
         WHERE users.status = 'true' AND users.link = ?`;
       const parameter = [link];
-      const global = await executeQuery(query, parameter);
-      return global;
+      const event = await executeQuery(query, parameter);
+      return event;
     } catch (error) {
       throw error;
     }
@@ -31,8 +31,8 @@ class GlobalDatabase {
         FROM users
         WHERE link = ?`;
       const parameter = [link];
-      const global = await executeQuery(query, parameter);
-      return global;
+      const event = await executeQuery(query, parameter);
+      return event;
     } catch (error) {
       throw error;
     }
@@ -47,12 +47,12 @@ class GlobalDatabase {
         WHERE users.link = ?
         ORDER BY category.category_name`;
       const parameter = [link];
-      const global = await executeQuery(query, parameter);
-      return global;
+      const event = await executeQuery(query, parameter);
+      return event;
     } catch (error) {
       throw error;
     }
   }
 }
 
-export default GlobalDatabase;
+export default EventDatabase;

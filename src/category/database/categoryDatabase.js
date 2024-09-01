@@ -13,6 +13,7 @@ class CategoryDatabase {
     }
   }
 
+  // displays all categories created by user using the user_id (user_id)
   async readCategory(id) {
     try {
       const query = `SELECT category_id, category_name, date_created FROM category WHERE user_id = ?  `;
@@ -35,6 +36,7 @@ class CategoryDatabase {
     }
   }
 
+  // displays only the id from the category database
   async getCategoryByID(id) {
     try {
       const query = "SELECT id FROM category WHERE category_id = ?";
@@ -46,6 +48,7 @@ class CategoryDatabase {
     }
   }
 
+  // displays all the candidates information from the category database using the categoryname
   async getCategoryByName(categoryname) {
     try {
       const query = `

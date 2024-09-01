@@ -19,10 +19,10 @@ class UserService {
       const checkUsername = await this.database.getUserByUsername(
         profile.user_name
       );
-      const checkLink = await this.database.getLinkService(profile.link);
+      const checkLink = await this.database.getLink(profile.link);
       const password = profile.user_password;
-      const confirmPassowrd = profile.confirm_password;
-      if (password !== confirmPassowrd)
+      const confirmPassword = profile.confirm_password;
+      if (password !== confirmPassword)
         return { error: "Password Do Not Match" };
       if (checkUsername.length) return { error: "Username exists" };
       if (checkLink.length) return { error: "Link exists" };
@@ -67,7 +67,7 @@ class UserService {
       console.error("get link {service}:", error.message);
     }
   }
-
+  
   async readUserService() {
     try {
       const user = await this.database.readUser();
@@ -136,12 +136,21 @@ class UserService {
     }
   }
 
-  async getCategoryCandidateService(category_name) {
+  async getCategoryCandidateService(id) {
     try {
-      const user = await this.database.getCategoryCandidate(category_name);
+      const user = await this.database.getCategoryCandidate(id);
       return user;
     } catch (error) {
       console.error("get category and candidate {service}:", error.message);
+    }
+  }
+
+  async getCategoryByNameService(category_name) {
+    try {
+      const user = await this.database.getCategoryByName(category_name);
+      return user;
+    } catch (error) {
+      console.error("get category by name {service}:", error.message);
     }
   }
 
@@ -453,14 +462,14 @@ class UserService {
     }
   }
 
-  async updatePasswordService(profile) {
-    try {
-      const user = await this.database.updateUser(profile);
-      return user;
-    } catch (error) {
-      console.error("change password {service}:", error.message);
-    }
-  }
+  // async updatePasswordService(profile) {
+  //   try {
+  //     const user = await this.database.updateUser(profile);
+  //     return user;
+  //   } catch (error) {
+  //     console.error("change password {service}:", error.message);
+  //   }
+  // }
 
   async editUserService(user_id) {
     try {

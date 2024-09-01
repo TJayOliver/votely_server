@@ -33,6 +33,7 @@ CREATE TABLE candidate (
     `candidate_id` VARCHAR(100) NOT NULL,
     `candidate_name` VARCHAR(255) NOT NULL,
     `candidate_profile` VARCHAR(800),
+    `image` VARCHAR(100) NOT NULL,
     `user_id` VARCHAR(100) NOT NULL,
     `category_id` VARCHAR(100) NOT NULL,
     `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
