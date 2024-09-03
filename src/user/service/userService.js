@@ -460,16 +460,16 @@ class UserService {
     } catch (error) {
       console.error("change password {service}:", error.message);
     }
-  }
+  } 
 
-  // async updatePasswordService(profile) {
-  //   try {
-  //     const user = await this.database.updateUser(profile);
-  //     return user;
-  //   } catch (error) {
-  //     console.error("change password {service}:", error.message);
-  //   }
-  // }
+  async updateUserService(profile) {
+    try {
+      const user = await this.database.updateUser(profile);
+      return user;
+    } catch (error) {
+      console.error("update user {service}:", error.message);
+    }
+  }
 
   async editUserService(user_id) {
     try {
