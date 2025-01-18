@@ -30,7 +30,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(helmet({ crossOriginResourcePolicy: false }));
+app.use(helmet({ crossOriginResourcePolicy: true }));
 app.use("/upload", express.static("upload"));
 app.use(cookieParser());
 app.use(bodyParser.json());
