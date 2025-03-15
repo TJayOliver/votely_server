@@ -21,7 +21,6 @@ dotenv.config();
 
 const PORT = process.env.PORT;
 const app = express();
-
 const factory = MySQLStore(session);
 
 app.use(
@@ -30,7 +29,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(helmet({ crossOriginResourcePolicy: true }));
+app.use(helmet());
 app.use("/upload", express.static("upload"));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -44,7 +43,6 @@ const options = {
   checkExpirationInterval: 60 * 60 * 1000,
   expiration: 60 * 60 * 1000,
 };
-
 const sessionStore = new factory(options);
 
 app.use(
